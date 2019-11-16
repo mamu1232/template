@@ -1,0 +1,36 @@
+\documentclass[tikz, border=1pt]{standalone}
+\usepackage{graphicx,xcolor}
+\usepackage{tikz}
+\usepackage{fontenc}
+\usepackage{fontspec} %欧文フォント設定（和文フォント設定より先に行う）
+\usepackage[ipaex]{luatexja-preset} %和文フォントに IPAex フォントを指定する
+\usetikzlibrary{patterns,arrows,calc,decorations.pathmorphing}
+\usepackage{amsmath}
+\begin{document}
+\begin{tikzpicture}
+\draw
+  (0,0)node[coordinate](cp){} --++ (2,0) .. controls+(1,0) and +(-1,0) ..(4,-1) --++(2,0)
+  (0,-2)node[coordinate](vp){} --++(2,0) .. controls+(1,0) and +(-1,0) ..(4,-3) --++(2,0)
+  ;
+\foreach \x in {1,2,...,7}
+  \draw ({1+1+\x/3},{1+0.2}) node {$\bullet$}; % p side : electrons
+\foreach \x in {1,2,...,7}
+  \draw ({1+\x/3},{-0.2}) node {$\circ$}; % n side : holes
+\draw [decorate, decoration={snake}, ->] (1,1) --node [below,sloped]{$h\nu$} (2, 0);
+\draw[<->]
+  (cp) --node[right]{$E_g$} (vp)
+  ;
+\draw[dashed]
+  (2,1)node[coordinate](pd){} --++(0,-5)
+  (4,1)node[coordinate](dn){} --++(0,-5)
+  ;
+\draw[dash dot]
+  (0,-1.5)node[left](Efleft){$E_f$} --++(6,0)node[coordinate](Efright){}
+  ;
+\path
+  (3,1) node [] {空乏層}
+  (1,1) node [] {p型}
+  (5,1) node [] {n型}
+  ;
+\end{tikzpicture}
+\end{document}

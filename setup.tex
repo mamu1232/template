@@ -1,0 +1,47 @@
+\documentclass[border=0.5pt]{standalone}
+\input{C:/Users/akira/Documents/tex/luamacro.tex}
+\newcommand{\dis}{1}
+\newcommand{\minh}{1cm}
+\newcommand{\minw}{1cm}
+\begin{document}
+\begin{tikzpicture}
+  %機器の配置
+  \node [rectangle,align= center,minimum height = 1.5*\minh,minimum width = {3.5*\minw},draw](dcdc){DC/DC\\ コンバータ};
+  \node [rectangle,minimum height = 1.5*\minh,align=center,draw,below = 2.5*\dis of dcdc.west,anchor = west,](vsS){直流電源（小）\\ \SI{5}{V}};
+  \node [rectangle,minimum height = 1.5*\minh,minimum width = {4*\minw},align=center,draw,right = 2*\dis of dcdc](opr){制御用\\ アナログ\\回路};
+  \node [rectangle,minimum height = 1.5*\minh,minimum width = {2.8*\minw},align=center,draw,below = \dis of opr](fg){ファンク\\ション・\\ジェネレータ};
+  \node [rectangle,minimum height = 1.5*\minh,align=center,draw,right = 0.5*\dis of vsS](ch1){オシロ\\スコープ\\CH1};
+  \node [rectangle,minimum height = 1.5*\minh,align=center,draw,below right = \dis and 0.5*\dis of opr](ch2){オシロ\\スコープ\\CH2};
+  % \node [rectangle,minimum height = \minh,minimum width = {2.8*\dis},align=center,draw,right=\dis of opr](DC){DC\\ サーボモータ};
+  % \node [rectangle,minimum height = \minh,minimum width = {2.8*\dis},align=center,draw,right={0.5*\dis} of DC](taco){タコ\\ ジェネレータ};
+  % \node [rectangle,draw,minimum width = {2.8*\dis},align=center,right=\dis of taco](ch2) {オシロスコープ \\ CH2};
+  %機器の接続
+   \draw
+   %vsSとdcdc
+    ($(vsS.north)+({-0.25*\dis},0)$)node[below]{\small $+$}--++(0,\dis)node[above]{\small $+$}
+    ($(vsS.north)+({+0.25*\dis},0)$)node[below]{\small $-$}--++(0,\dis)node[above]{\small $-$}
+    %dcdcとopr
+   ($(dcdc.east)+(0,{0.35*\dis})$)node[left]{\scriptsize $-\SI{15}{V}$} -- ($(opr.west)+(0,{0.35*\dis})$)node[right]{\scriptsize $-\SI{15}{V}$}
+   ($(dcdc.east)+(0,0)$)node[left]{\scriptsize $+\SI{15}{V}$} -- ($(opr.west)+(0,0)$)node[right]{\scriptsize $+\SI{15}{V}$}
+   %fg
+   ($(opr.west)+(0,{-0.35*\dis})$)node[right]{\scriptsize $v\blw{ref}$} --++(-0.5*\dis,0)|-($(fg.west)+(0,{0.3*\dis})$)coordinate[midway](fgred)node[right]{\scriptsize 赤}
+   (fgred)--($(ch1.east)+(0,{0.3*\dis})$)
+   ($(fg.west)+(0,{-0.3*\dis})$)node[right]{\scriptsize 黒}--($(ch1.east)+(0,{-0.3*\dis})$)coordinate[midway](fgblk)
+   %oprとch2
+   ($(opr.east)+(0,{0.35*\dis})$)node[left]{\scriptsize $v\blw{in}$} -| ($(ch2.north)+({0.35*\dis},0)$)coordinate[midway](gndout)node[right]{}
+   ($(opr.east)+(0,{-0.35*\dis})$)node[left]{\scriptsize $v\blw{out}$} -| ($(ch2.north)+({-0.35*\dis},0)$)
+  % ($(fg.east)+(0,{-0.25*\minh})$)node[below right]{\small 黒} --coordinate[midway,pos=0.7](ch1-) ($(opr.west)+(0,{-0.25*\minh})$)node[right]{\scriptsize COM}
+  %gnd
+  ($(dcdc.east)+(0,{-0.35*\dis})$)node[left]{\scriptsize COM} -|++(0.5*\dis,-0.5*\dis)node[sground]{}
+  (fgblk)--++(0,-0.1*\dis)node[sground]{}
+  (gndout)-|++(0.5*\dis,-0.1*\dis)node[sground]{}
+  %交点
+   \fill
+  % (ch1+) circle(1pt)
+  % (ch1-) circle(1pt)
+   (fgred) circle(1pt)
+   (fgblk) circle(1pt)
+   (gndout) circle(1pt)
+   ;
+\end{tikzpicture}
+\end{document}

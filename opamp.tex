@@ -1,0 +1,44 @@
+\documentclass[border=0.5pt]{standalone}
+\input{C:/Users/akira/Documents/tex/luamacro.tex}
+\newcommand{\dis}{1}
+% \newcommand{\gap}{}
+% \newcommand{\dwn}{-0.5*\gap}
+\begin{document}
+
+\begin{tikzpicture}[scale=1]
+%\draw[help lines,step=.5] (0,0) grid (10,-5);
+\draw
+%opamp
+(3.5,-0.5)node[op amp](opamp){}
+(10,-1)node[op amp](opamp2){}
+(opamp.out)to[short,-*](5,-0.5)coordinate(out1)
+(opamp2.out)to[short,-*](11.5,-1)coordinate(out2)
+(opamp2.+)node[above]{$v_+$}--++(0,-1.5*\dis)node[sground]{}
+%差動増幅器　上側
+(0,0) node[above]{$v\blw{in}$}
+to [R,align=center, l=$R_1$ \\ \SI{20}{k\ohm}, o-*] (opamp.-)
+--++(0,\dis)
+to[R,align=center, l=$R_2$ \\ \SI{300}{k\ohm}] (5,\dis)
+to[short](out1) to[short,*-*]++(\dis,0)coordinate(vm)node[right]{$v\blw{m}$}
+%差動増幅器　下側
+(0,-1)node[below]{$v\blw{ref}$}
+to[R,align=center,l_=$R_1$ \\ \SI{20}{k\ohm},o-*](opamp.+)
+to[R,align=center,l=$R_2$ \\ \SI{300}{k\ohm}] ++(0,-2.2*\dis)node[sground]{}
+%位相進み要素
+(vm)--++(0,0.5*\dis)
+to[R,align=center, l=$R_3$ \\ \SI{2}{k\ohm} ]++(2*\dis,0)
+to[short,-*]++(0,-0.5*\dis)coordinate(vin2) --++(0,-0.5*\dis)
+to[C,align = center, l=$C_1$ \\ \SI{10}{\micro F}]++(-2*\dis,0)--(vm)
+(vin2)
+to[short,-*,i=$i_-$](opamp2.-)node[below]{$v_-$}
+--++(0,2*\dis)
+to[short,-*]++(0.25*\dis,0)coordinate(c2r4in)--++(0,0.5*\dis)
+to[R,align=center, l=$R_4$ \\ \SI{15}{k\ohm} ]++(2*\dis,0)
+to[short,-*]++(0,-0.5*\dis)coordinate(c2r4out) --++(0,-0.5*\dis)
+to[C,align = center, l=$C_2$ \\ \SI{1}{\micro F}]++(-2*\dis,0)--(c2r4in)
+(c2r4out)-|(out2)
+to[short,*-o]++(\dis,0)node[above]{$v\blw{out}$}
+;
+\end{tikzpicture}
+
+\end{document}

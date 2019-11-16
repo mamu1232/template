@@ -1,0 +1,114 @@
+\documentclass[12pt, unicode]{beamer} %handout をoptionに入れればpauseなどを無視した配布用のPDFが作れる
+\usepackage{luatexja}
+\usepackage[ipaex]{luatexja-preset}
+\usepackage{amsmath,amssymb,mathtools,bm,physics,exscale}
+\usepackage{siunitx}
+\renewcommand{\kanjifamilydefault}{\gtdefault}%  既定をゴシック体に
+\usetheme{Copenhagen}
+
+\setbeamertemplate{navigation symbols}{} % 下にあるナビゲーションシンボルを消す
+\setbeamertemplate{footline}[frame number]
+\setbeamerfont{footline}{size=\small}
+\setbeamertemplate{headline}{}
+\usefonttheme{professionalfonts}
+
+%section ごとに目次挿入
+\AtBeginSection[]{
+    \begin{frame}{Next}
+        \tableofcontents[currentsection]
+    \end{frame}
+}
+
+% Babel (日本語の場合のみ・英語の場合は不要)
+\uselanguage{japanese}
+\languagepath{japanese}
+\deftranslation[to=japanese]{Theorem}{定理}
+\deftranslation[to=japanese]{Lemma}{補題}
+\deftranslation[to=japanese]{Example}{例}
+\deftranslation[to=japanese]{Examples}{例}
+\deftranslation[to=japanese]{Definition}{定義}
+\deftranslation[to=japanese]{Definitions}{定義}
+\deftranslation[to=japanese]{Problem}{問題}
+\deftranslation[to=japanese]{Solution}{解}
+\deftranslation[to=japanese]{Fact}{事実}
+\deftranslation[to=japanese]{Proof}{証明}
+\def\proofname{証明}
+
+
+\title{Beamer Tutorial}
+\author[今村]{今村　陽}
+\date[\today]{\today}
+\institute[京大]{京都大学} % 所属
+% [..]に省略名が書ける
+
+\begin{document}
+
+\frame{\maketitle}
+
+\begin{frame}
+  \frametitle{Contents}
+  \tableofcontents %目次
+\end{frame}
+
+\section{ブロック}
+\begin{frame}{frame title}
+\begin{block}{ブロック}
+ これはBlockの中身です．
+\end{block}
+\end{frame}
+
+\section{pause}
+\begin{frame}
+ \frametitle{はじめてのスライド}
+ \begin{definition}
+   1と自分自身しか約数を持たない数を\alert{素数}という．
+ \end{definition}
+   \begin{itemize}
+     \item 2 は素数．
+     \pause
+     \item 3 も素数．
+     \pause
+     \item 4 は素数ではない．
+  \end{itemize}
+ \end{frame}
+
+\section{Overlay}
+\begin{frame}{素数は無限に存在する}
+\begin{theorem}
+素数は無限に存在する．
+\end{theorem}
+\begin{proof}
+ \begin{enumerate}
+  \item<1-> $p_1, \dots, p_n$ がすべての素数だと仮定する．% <1>,<2-4>なども可
+  \item<2-> $q := p_1 \dots p_n + 1$ とおく．
+  \item<3-> すると $q$ はどの $p_1,\dots,p_n$ でも割り切れない．
+  \item<1-> したがって，$q$は新たな素数を約数にもつことになって矛盾する．\qedhere
+\end{enumerate}
+\end{proof}
+\uncover<4->{証明は\alert{背理法}を使った．} % テキストにOverlayをつける
+\end{frame}
+
+\begin{frame}{columnsを使用した配置}
+  \begin{block}{top block}
+    ...
+  \end{block}
+  \begin{columns}[c]  % 中央をあわせる
+  %\begin{columns}[t] % 上辺をあわせる
+    \begin{column}{0.3\textwidth} % 横幅の30％
+      \includegraphics[width=\columnwidth]{I-V.pdf}
+    \end{column}
+    \begin{column}{0.65\textwidth} % 横幅の65％
+      \begin{block}{right block}
+        \begin{itemize}
+          \item 図の説明とか
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+  \begin{block}{bottom block}
+    ...
+  \end{block}
+\end{frame}
+
+
+\end{document}

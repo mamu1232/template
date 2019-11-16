@@ -1,0 +1,92 @@
+\documentclass{ltjsreport}
+\input{C:/Users/akira/Documents/tex/luamacro.tex}
+%
+http://www.tablesgenerator.com/latex_tables#
+%
+\luaexec{tex.print(\asluastring{\SI}..'{'..string.format("\%.1e",2.1^2)..'}{'..\asluastring{\ohm}..'}')}
+%
+python "C:\Users\akira\Documents\pythonpractice\template\lt-to-tikz\lt2circuitikz-master\lt2ti.py" ".asc"
+%
+\draw [help lines] (0,1) grid (10,-4);%(0,0)から(10,4)までの"細線の方眼"
+\begin{figure}
+  \begin{subfigure}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{.pdf}
+    \caption{}
+    \label{fig:}
+  \end{subfigure}
+  \begin{subfigure}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{.pdf}
+    \caption{}
+    \label{fig:}
+  \end{subfigure}
+  \caption{}
+  \label{fig:}
+\end{figure}
+
+%
+\begin{wrapfigure}{r}{4cm}
+  \centering
+  \includegraphics[width=4cm]{}
+  \caption{}
+  \label{fig:}
+\end{wrapfigure}
+%
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.7\hsize]{}
+  \caption{}
+  \label{fig:}
+\end{figure}
+%figure-minipage
+\begin{figure}[tbp]
+ \begin{minipage}{0.5\hsize}
+  \centering
+  \includegraphics[width=70mm]{}
+  \caption{}
+  \label{fig:}
+ \end{minipage}
+ \begin{minipage}{0.5\hsize}
+  \centering
+  \includegraphics[width=70mm]{}
+  \caption{}
+  \label{fig:}
+ \end{minipage}
+\end{figure}
+%tab
+\begin{table}[tb]
+  \centering
+  \caption{}
+  \label{tab:}
+  \begin{tabular}{ccc|cc} \hline
+
+  \end{tabular}
+\end{table}
+%tab-minipage
+\begin{table}[tbp]
+	\centering
+	\begin{tabular}{c}
+  \begin{minipage}{0.3\hsize}
+    \centering
+    \caption{}
+    \label{tab:}
+    \begin{tabular}{|c|c|c|} \hline
+    \end{tabular}
+  \end{minipage}
+\begin{minipage}{0.7\hsize}
+	\centering
+	\begin{tabular}{c}
+  \begin{minipage}{0.3\hsize}
+    \centering
+    \caption{}
+    \label{tab:}
+    \begin{tabular}{|c|c|c|} \hline
+    \end{tabular}
+  \end{minipage}
+\end{minipage}
+\end{table}
+%overpic
+\begin{overpic}[width=,clip,grid]{.pdf}
+  \put(,){hello}
+\end{overpic}
