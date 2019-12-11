@@ -25,14 +25,9 @@ else:
 if os.path.exists("./"+date+"figure/graph.ipynb"):
     print("ipynbs already exist.  They weren't copied.")
 else:
-    shutil.copyfile("C:/Users/akira/Documents/pythonpractice/template/graph.ipynb", "./"+date+"/figure/graph.ipynb")
-    shutil.copyfile("C:/Users/akira/Documents/pythonpractice/template/sympy.ipynb", "./"+date+"/figure/sympy.ipynb")
-    shutil.copyfile("C:/Users/akira/Documents/pythonpractice/template/excel-csv-textable.ipynb", "./"+date+"/figure/excel-csv-textable.ipynb")
+    shutil.copyfile("C:/Users/akira/Documents/template/graph.ipynb", "./"+date+"/figure/graph.ipynb")
+    shutil.copyfile("C:/Users/akira/Documents/template/sympy.ipynb", "./"+date+"/figure/sympy.ipynb")
     print("ipynbs copied.")
-if os.path.exists("./"+date+"figure/excel-genarate.py"):
-    print("excel-generate already exist.  They weren't copied.")
-else:
-    shutil.copyfile("C:/Users/akira/Documents/pythonpractice/excel-generate.py", "./"+date+"/figure/excel-generate.py")
 # texfile作成
 # luamain
 pre =   r"\documentclass{ltjsarticle}" "\n"\
@@ -60,7 +55,6 @@ else:
     for i in range(1,sub_num+1):
         with open("./"+date+"/sub"+"/sub"+str(i)+".tex", 'a',encoding='utf-8') as f:
             presub =    r"\documentclass[../luamain]{subfiles}" "\n" \
-                        r"\setcounter{section}{"+str(i-1)+r"}" "\n\n" \
                         r"\begin{document}" "\n\n" \
                         r"\section{}" "\n\n" \
                         r"\subsection{目的}" "\n\n" \
